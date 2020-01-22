@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import "index.scss";
-// import Button from "components/Button";
+import Button from "components/Button";
 import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem"
@@ -12,21 +12,24 @@ import "components/Appointment";
 import Appointment from "components/Appointment/index"
 import Header from "components/Appointment/Header"
 import Empty from "components/Appointment/Empty"
-// storiesOf("Button", module)
-//   .addParameters({
-//     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-//   })
-//   .add("Base", () => <Button>Base</Button>)
-//   .add("Confirm", () => <Button confirm>Confirm</Button>)
-//   .add("Danger", () => <Button danger>Cancel</Button>)
-//   .add("Clickable", () => (
-//     <Button onClick={action("button-clicked")}>Clickable</Button>
-//   ))
-//   .add("Disabled", () => (
-//     <Button disabled onClick={action("button-clicked")}>
-//       Disabled
-//     </Button>
-//   ));
+import Show from "components/Appointment/Show"
+import Confirm from "components/Appointment/Confirm"
+
+storiesOf("Button", module)
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+  })
+  .add("Base", () => <Button>Base</Button>)
+  .add("Confirm", () => <Button confirm>Confirm</Button>)
+  .add("Danger", () => <Button danger>Cancel</Button>)
+  .add("Clickable", () => (
+    <Button onClick={action("button-clicked")}>Clickable</Button>
+  ))
+  .add("Disabled", () => (
+    <Button disabled onClick={action("button-clicked")}>
+      Disabled
+    </Button>
+  ));
 
 storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
   .addParameters({
@@ -131,6 +134,7 @@ storiesOf("InterviewerList", module)
   ));
 
 
+
 storiesOf("Appointment", module)
   .addParameters({
     backgrounds: [{ name: "white", value: "#fff", default: true }]
@@ -142,4 +146,18 @@ storiesOf("Appointment", module)
     <Empty onAdd={action("onAdd")}
     />)
   )
-
+  .add("Show", () => (
+    <Show
+      student = "Lydia Miller-Jones"
+      interviewer= {interviewers[0].name}
+      onEdit={action("onEdit")}
+      onDelete={action("onDelete")}
+    />)
+  )
+  .add("Confirm", () => (
+    <Confirm 
+    message = "Delete the appointment"
+    onConfirm= {action("onConfirm")}
+    onCancel = {action("onCancel")}
+  />)
+  )
