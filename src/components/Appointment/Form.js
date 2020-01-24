@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "components/Appointment/styles.scss";
 import InterviewerList from "components/InterviewerList"
-import InterviewerListItem from "components/InterviewerListItem"
 import Button from "components/Button";
+import "components/Appointment/styles.scss";
 
 
 export default function Form(props) {
@@ -31,7 +30,7 @@ export default function Form(props) {
             type="text"
             value={name}
             placeholder="Enter Student Name"
-            onChange={(event) => setName(event.target.value)}
+            onChange={event => setName(event.target.value)}
           /*
             This must be a controlled component
           */
