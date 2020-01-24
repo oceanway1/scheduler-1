@@ -11,7 +11,7 @@ const getAppointmentsForDay = (state, day) => {
 };
 
 
-const getInterView = (state, interview) => {
+const getInterview = (state, interview) => {
   let result = {};
   if (!interview) {
     return null
@@ -27,5 +27,5 @@ const getInterView = (state, interview) => {
 
 module.exports = {
   getAppointmentsForDay,
-  getInterView
+  getInterview
 }
