@@ -1,4 +1,4 @@
-export const getAppointmentsForDay = (state, day) => {
+const getAppointmentsForDay = (state, day) => {
   const appointmentsDay = state.days
     .filter(states => states.name === day)
     .map(states => states.appointments)
@@ -9,3 +9,23 @@ export const getAppointmentsForDay = (state, day) => {
   });
   return filteredDay;
 };
+
+
+const getInterView = (state, interview) => {
+  let result = {};
+  if (!interview) {
+    return null
+  }
+  result.student = interview.student;
+  console.log(state)
+  result.interviewer = state.interviews[interview.interviewer]
+  
+  return result;
+}
+
+
+
+module.exports = {
+  getAppointmentsForDay,
+  getInterView
+}
