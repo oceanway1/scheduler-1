@@ -12,14 +12,17 @@ const getAppointmentsForDay = (state, day) => {
 
 
 const getInterview = (state, interview) => {
-  let result = {};
+  // let result = {};
   if (!interview) {
     return null
   }
-  result.student = interview.student;
-  console.log(state)
-  result.interviewer = state.interviews[interview.interviewer]
-  
+  const student = interview.student;
+  // result.student = interview.student;
+  // console.log(state)
+  const interviewer = state.interviewers[interview.interviewer]
+  // result.interviewer = state.interviews[interview.interviewer]
+  const result = {student, interviewer}
+  // console.log(result)
   return result;
 }
 
