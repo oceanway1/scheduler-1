@@ -34,7 +34,7 @@ export default function Application(props) {
     days: [],
     appointments: {},
     interviews: {},
-    interviewers: {}
+    interviewers: []
   });
   const appointments = getAppointmentsForDay(state, state.day);
   const schedule = appointments.map(appointment => {
@@ -42,9 +42,9 @@ export default function Application(props) {
     // const interviewer = getInterview(appointment.interviewer)
     return (
       <Appointment
-        key={appointments.id}
-        id={appointments.id}
-        time={appointments.time}
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
         interview={interview}
         interviewers={state.interviewers}
 

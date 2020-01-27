@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import  { useState  } from "react";
 
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
-  function transition(newMode, replace =false) {
+  function transition(newMode, replace = false) {
     let newHistory = [...history];
     if (replace === true) {
       newHistory.pop();
