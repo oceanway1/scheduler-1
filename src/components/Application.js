@@ -9,10 +9,6 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day })
 
   useEffect(() => {
-    // axios.get(`/api/days`).then((response) => {
-    //   console.log(response)
-    //   setDays(response.data)
-    //   // const day = axios.get("api/days");
     const day = axios.get(`/api/days`)
     const appointment = axios.get(`/api/appointments`)
     const interviewers = axios.get(`/api/interviewers`)
@@ -39,7 +35,7 @@ export default function Application(props) {
   function bookInterview(id, interview) {
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        console.log('id', id, 'interview', interview)
+        // console.log('id', id, 'interview', interview)
         const appointment = {
           ...state.appointments[id],
           interview: { ...interview }
@@ -53,14 +49,37 @@ export default function Application(props) {
           appointments
         });
       })
+
   }
+
+
+  function cancelInterview(id, interview) {
+    return axios.delete(`/api/appointments/${id}`, { interview: null })
+      .then(() => {
+        const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview }
+        };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
+        delete (`/api/appointments/${id}`, { interview: null })
+        setState({
+          ...state,
+          appointments
+        });
+
+      })
+  }
+
 
   const appointments = getAppointmentsForDay(state, state.day);
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
     const interviewers = getInterviewersForDay(state, state.day);
-    if (!interview) 
-    console.log("helll---________", interviewers)
+    if (!interview)
+      console.log("helll---________", interviewers)
     return (
       <Appointment
         key={appointment.id}
@@ -68,6 +87,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
         interviewers={interviewers}
 
 
