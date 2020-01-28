@@ -3,12 +3,9 @@ import Appointment from "../components/Appointment"
 import "components/Application.scss";
 import DayList from "components/DayList"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors"
-const axios = require('axios');
-
-
+import axios from "axios"
 
 export default function Application(props) {
-
   const setDay = day => setState({ ...state, day })
 
   useEffect(() => {
@@ -19,13 +16,14 @@ export default function Application(props) {
     const day = axios.get(`/api/days`)
     const appointment = axios.get(`/api/appointments`)
     const interviewers = axios.get(`/api/interviewers`)
+
     Promise.all([
-      Promise.resolve(day),
-      Promise.resolve(appointment),
-      Promise.resolve(interviewers)
+      day,
+      appointment,
+      interviewers
     ]).then((all) => {
       setState(prev => ({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
-      console.log(day, appointment, interviewers);
+      // console.log(day, appointment, interviewers);
     });
   }, [])
 
@@ -34,12 +32,34 @@ export default function Application(props) {
     days: [],
     appointments: {},
     interviews: {},
-    interviewers: []
+    interviewers: {}
   });
+
+
+  function bookInterview(id, interview) {
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(() => {
+        console.log('id', id, 'interview', interview)
+        const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview }
+        };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
+        setState({
+          ...state,
+          appointments
+        });
+      })
+  }
+
   const appointments = getAppointmentsForDay(state, state.day);
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
     const interviewers = getInterviewersForDay(state, state.day);
+    if (!interview) 
     console.log("helll---________", interviewers)
     return (
       <Appointment
@@ -47,7 +67,8 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
-        interviewers= {interviewers}
+        bookInterview={bookInterview}
+        interviewers={interviewers}
 
 
       />
