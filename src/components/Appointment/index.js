@@ -27,7 +27,6 @@ export default function Appointment(props) {
       interviewer
     };
     transition(SAVING);
-    // console.log(interview)
     props.bookInterview(props.id, interview).then(() => transition(SHOW))
 
   }
@@ -40,7 +39,7 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  // console.log("oh my props!", props.interview, mode);
+  
   return (
 
     <article className="appointment">
@@ -56,7 +55,7 @@ export default function Appointment(props) {
       )}
       {mode === CREATE && (
         <Form
-          interviewers={Object.values(props.interviewers)}
+          interviewers={props.interviewers}
           onCancel={() => back()}
           onSave={save}
 
@@ -69,6 +68,15 @@ export default function Appointment(props) {
           message="Are you sure you would like to delete the appointment ?"
           onCancel={() => back()}
           onConfirm={destroy}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          interviewers={props.interviewers}
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          onCancel={() => back()}
+          onSave={save}
         />
       )}
 
