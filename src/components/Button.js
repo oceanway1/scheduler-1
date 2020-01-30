@@ -2,13 +2,11 @@ import React from "react";
 import "components/Button.scss";
 import classname from "classnames";
 
-
 export default function Button(props) {
    const buttonClass = classname("button", {
       "button--confirm": props.confirm,
       "button--danger": props.danger
-    });
-   
+   });
    return (
       <button
          className={buttonClass}
@@ -16,6 +14,6 @@ export default function Button(props) {
          disabled={props.disabled}
       >
          {props.children}
-         </button>
+      </button>
    )
 }

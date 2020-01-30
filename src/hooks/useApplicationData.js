@@ -76,7 +76,6 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-
   // Set the current day
   function setDay(day) {
     dispatch({ type: SET_DAY, value: day })
@@ -101,7 +100,7 @@ export default function useApplicationData() {
     const day = axios.get(`/api/days`)
     const appointment = axios.get(`/api/appointments`)
     const interviewers = axios.get(`/api/interviewers`)
-
+    
     Promise.all([
       day,
       appointment,

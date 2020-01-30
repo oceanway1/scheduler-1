@@ -3,19 +3,21 @@ import InterviewerList from "components/InterviewerList"
 import Button from "components/Button";
 import "components/Appointment/styles.scss";
 
-
 export default function Form(props) {
   const [name, setName] = useState(props.name || "")
   const [interviewer, setInterviewer] = useState(props.interviewer || null)
   const { interviewers, onCancel, onSave } = props
+
   function reset() {
     setName("")
     setInterviewer(null)
   }
+
   function cancel() {
     reset()
     onCancel()
   }
+
   function save() {
     onSave(name, interviewer);
   }
@@ -31,9 +33,6 @@ export default function Form(props) {
             value={name}
             placeholder="Enter Student Name"
             onChange={event => setName(event.target.value)}
-          /*
-            This must be a controlled component
-          */
           />
         </form>
         <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer} />

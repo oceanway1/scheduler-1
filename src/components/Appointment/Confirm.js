@@ -2,7 +2,6 @@ import Button from "components/Button";
 import React from "react";
 import "components/Appointment/styles.scss";
 
-
 export default function Show(props) {
   return (
     <main className="appointment__card appointment__card--confirm">
@@ -12,6 +11,5 @@ export default function Show(props) {
         <Button danger onClick={props.onConfirm}>Confirm</Button>
       </section>
     </main>
-
   )
 }
