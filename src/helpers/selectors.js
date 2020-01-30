@@ -1,3 +1,4 @@
+//returns all of the interviews for that given day
 const getAppointmentsForDay = (state, day) => {
   const appointmentsDay = state.days
     .filter(states => states.name === day)
@@ -9,6 +10,20 @@ const getAppointmentsForDay = (state, day) => {
   });
   return filteredDay;
 };
+
+
+const getInterview = (state, interview) => {
+  if (!interview) {
+    return null
+  }
+  else {
+    const student = interview.student;
+    const interviewer = state.interviewers[interview.interviewer]
+    const result = { student, interviewer }
+    return result;
+  }
+}
+
 
 const getInterviewersForDay = (state, day) => {
   const getInterviewersDay = state.days
@@ -22,17 +37,6 @@ const getInterviewersForDay = (state, day) => {
   return result;
 };
 
-
-const getInterview = (state, interview) => {
-  // let result = {};
-  if (!interview) {
-    return null
-  }
-  const student = interview.student;
-  const interviewer = state.interviewers[interview.interviewer]
-  const result = {student, interviewer}
-  return result;
-}
 
 
 

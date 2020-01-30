@@ -6,7 +6,6 @@ import Show from "components/Appointment/Show";
 import useVisualMode from "hooks/useVisualMode"
 import Form from "components/Appointment/Form"
 import Status from "components/Appointment/Status"
-import bookInterview from "components/Application"
 import Confirm from "components/Appointment/Confirm"
 import Error from "components/Appointment/Error"
 
@@ -23,9 +22,12 @@ const ERROR_SAVE = "ERROR_SAVE"
 const ERROR_DELETE = "ERROR_DELETE"
 
 
-
 export default function Appointment(props) {
+  const { mode, transition, back } = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  );
 
+  // Save data of student name and interview name when creating an interview
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -36,23 +38,17 @@ export default function Appointment(props) {
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(error => transition(ERROR_SAVE, true));
-
   }
 
+  // Delete the interview 
   function destroy() {
     transition(DELETING, true);
     props
       .cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch(error => transition(ERROR_DELETE, true));
-
   }
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
-  );
-
   return (
-
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -69,7 +65,6 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onCancel={() => back()}
           onSave={save}
-
         />
       )}
       {mode === SAVING && <Status message="Saving" />}
@@ -98,15 +93,10 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_DELETE && (
         <Error
-          message="Error deleting"
+          message="Could not cancel appointment"
           onClose={() => back(SHOW)}
         />
       )}
-
-
-
-
-
     </article>
   )
 
