@@ -21,3 +21,8 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Screenshots
+!["Screenshot of appointment form"](https://github.com/oceanway1/scheduler-1/blob/master/docs/appointment-2form.png)
+!["Screenshot of appointments on Thursday"](https://github.com/oceanway1/scheduler-1/blob/master/docs/appointment-form.png)
+!["Screenshot of fully booked appointments on Monday"](https://github.com/oceanway1/scheduler-1/blob/master/docs/show-full-appointments.png)
